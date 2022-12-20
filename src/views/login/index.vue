@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
     <div class="login-container">
       <div class="img">
         <component :is="toRaw(illustration)" />
-      </div> 
+      </div>
       <div class="login-box">
         <div class="login-form">
           <avatar class="avatar" />
