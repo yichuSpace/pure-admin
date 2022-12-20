@@ -15,6 +15,7 @@ import { injectResponsiveStorage } from "@/utils/responsive";
 import "./style/reset.scss";
 // 导入公共样式
 import "./style/index.scss";
+import "./style/tailwind.css";
 import "element-plus/dist/index.css";
 // 导入字体图标
 import "./assets/iconfont/iconfont.js";
