@@ -37,14 +37,14 @@ const modules: Record<string, any> = import.meta.glob(
 );
 
 // 根路由
-export const RootRoute: RouteRecordRaw = {
-  path: "/",
-  redirect: "/dashboard",
-  component: () => import("@/layout/index.vue"),
-  meta: {}
-};
+// export const RootRoute: RouteRecordRaw = {
+//   path: "/",
+//   redirect: "/dashboard",
+//   component: () => import("@/layout/index.vue"),
+//   meta: {}
+// };
 /** 原始静态路由（未做任何处理） */
-const routes = [RootRoute];
+const routes = [];
 
 Object.keys(modules).forEach(key => {
   routes.push(modules[key].default);

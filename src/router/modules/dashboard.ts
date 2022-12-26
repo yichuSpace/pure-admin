@@ -1,15 +1,14 @@
-import { dashboard } from "@/router/enums";
 const Layout = () => import("@/layout/index.vue");
 
 export default {
-  path: "/dashboard",
-  name: "Dashboard",
+  path: "/",
+  name: "dashboard",
   component: Layout,
   redirect: "/dashboard/analysis",
   meta: {
     icon: "homeFilled",
-    title: "Dashboard",
-    rank: dashboard
+    title: "dashboard",
+    rank: 0
   },
   children: [
     {
