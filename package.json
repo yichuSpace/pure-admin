@@ -1,7 +1,8 @@
 {
-  "name": "pure-admin-thin",
-  "version": "3.9.6",
+  "name": "pure-admin",
+  "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "NODE_OPTIONS=--max-old-space-size=4096 vite",
     "serve": "pnpm dev",
@@ -117,8 +118,5 @@
         "webpack"
       ]
     }
-  },
-  "repository": "git@github.com:xiaoxian521/pure-admin-thin.git",
-  "author": "xiaoxian521",
-  "license": "MIT"
+  }
 }
