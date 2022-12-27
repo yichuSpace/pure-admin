@@ -34,7 +34,44 @@ const permissionRouter = {
     }
   ]
 };
-
+const goodsManagementRouter = {
+  path: "/goods",
+  meta: {
+    title: "商品",
+    icon: "lollipop",
+    rank: 11
+  },
+  children: [
+    {
+      path: "/goods/goodsManagement",
+      name: "GoodsManagement",
+      meta: {
+        title: "商品管理",
+        roles: ["admin", "common"]
+      },
+      children: [
+        {
+          path: "/goods/goodsManagement/sku/index",
+          name: "SkuManagement",
+          meta: {
+            title: "商品管理",
+            roles: ["admin", "common"],
+            auths: ["btn_add", "btn_edit", "btn_delete"]
+          }
+        },
+        {
+          path: "/goods/goodsManagement/spu/index",
+          name: "SpuManagement",
+          meta: {
+            title: "SPU管理",
+            roles: ["admin", "common"],
+            auths: ["btn_add", "btn_edit", "btn_delete"]
+          }
+        }
+      ]
+    }
+  ]
+};
 export default [
   {
     url: "/getAsyncRoutes",
@@ -42,7 +79,7 @@ export default [
     response: () => {
       return {
         success: true,
-        data: [permissionRouter]
+        data: [permissionRouter, goodsManagementRouter]
       };
     }
   }

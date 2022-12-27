@@ -48,11 +48,10 @@ export function setUserInfo(data) {
       roles
     });
   }
-
-  if (data.data.username) {
-    const { username } = data;
+  if (data.data.userName) {
+    const { userName } = data;
     const roles = ["admin"];
-    setSessionKey(username, roles);
+    setSessionKey(userName, roles);
     storageSession().setItem("userInfo", data);
   } else {
     const username =
