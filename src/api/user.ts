@@ -1,19 +1,10 @@
 import { http } from "@/utils/http";
+const BASIC_URL = "/deyi-enterprise-center/api/v1/manage/enterprise-user";
 
 export type UserResult = {
-  success: boolean;
-  data: {
-    /** 用户名 */
-    username: string;
-    /** 当前登陆用户的角色 */
-    roles: Array<string>;
-    /** `token` */
-    accessToken: string;
-    /** 用于调用刷新`accessToken`的接口时所需的`token` */
-    refreshToken: string;
-    /** `accessToken`的过期时间（格式'xxxx/xx/xx xx:xx:xx'） */
-    expires: Date;
-  };
+  code: string;
+  data: string;
+  msg: string;
 };
 
 export type RefreshTokenResult = {
@@ -30,7 +21,11 @@ export type RefreshTokenResult = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+  return http.request<UserResult>("post", `${BASIC_URL}/login`, { data });
+};
+/** 获取用户信息 */
+export const getUserInfo = () => {
+  return http.request("get", `${BASIC_URL}/get`);
 };
 
 /** 刷新token */
