@@ -58,23 +58,23 @@ export interface setType {
   hideTabs: boolean;
 }
 
-export type childrenType = {
+export type menuType = {
+  id?: number;
   path?: string;
   noShowingChildren?: boolean;
-  children?: childrenType[];
+  children?: menuType[];
   value: unknown;
   meta?: {
     icon?: string;
     title?: string;
+    rank?: number;
     showParent?: boolean;
-    extraIcon?: {
-      svg?: boolean;
-      name?: string;
-    };
+    extraIcon?: string;
   };
   showTooltip?: boolean;
   parentId?: number;
   pathList?: number[];
+  redirect?: string;
 };
 
 export type themeColorsType = {

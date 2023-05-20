@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import extraIcon from "./extraIcon.vue";
 import Search from "../search/index.vue";
 import Notice from "../notice/index.vue";
 import { useNav } from "@/layout/hooks/useNav";
@@ -21,6 +22,7 @@ const {
   menuSelect,
   resolvePath,
   username,
+  getDivStyle,
   avatarsStyle
 } = useNav();
 
@@ -78,15 +80,12 @@ watch(
               :is="useRenderIcon(route.meta && toRaw(route.meta.icon))"
             />
           </div>
-          <span class="select-none">{{ route.meta.title }}</span>
-          <FontIcon
-            v-if="route.meta.extraIcon"
-            width="30px"
-            height="30px"
-            style="position: absolute; right: 10px"
-            :icon="route.meta.extraIcon.name"
-            :svg="route.meta.extraIcon.svg ? true : false"
-          />
+          <div :style="getDivStyle">
+            <span class="select-none">
+              {{ route.meta.title }}
+            </span>
+            <extraIcon :extraIcon="route.meta.extraIcon" />
+          </div>
         </template>
       </el-menu-item>
     </el-menu>
@@ -136,9 +135,9 @@ watch(
   max-width: 120px;
 
   ::v-deep(.el-dropdown-menu__item) {
-    min-width: 100%;
     display: inline-flex;
     flex-wrap: wrap;
+    min-width: 100%;
   }
 }
 </style>
