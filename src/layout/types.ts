@@ -3,7 +3,6 @@ import type { IconifyIcon } from "@iconify/vue";
 export const routerArrays: Array<RouteConfigs> = [
   {
     path: "/",
-    parentPath: "/",
     meta: {
       title: "首页",
       icon: "homeFilled"
@@ -21,7 +20,6 @@ export type routeMetaType = {
 
 export type RouteConfigs = {
   path?: string;
-  parentPath?: string;
   query?: object;
   params?: object;
   meta?: routeMetaType;

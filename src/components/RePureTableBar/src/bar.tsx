@@ -1,6 +1,12 @@
 import { useEpThemeStoreHook } from "@/store/modules/epTheme";
-import { delay, getKeyList, cloneDeep } from "@pureadmin/utils";
 import { defineComponent, ref, computed, type PropType, nextTick } from "vue";
+import {
+  delay,
+  cloneDeep,
+  isBoolean,
+  isFunction,
+  getKeyList
+} from "@pureadmin/utils";
 
 import Sortable from "sortablejs";
 import DragIcon from "./svg/drag.svg?component";
@@ -37,8 +43,13 @@ export default defineComponent({
     const loading = ref(false);
     const checkAll = ref(true);
     const isIndeterminate = ref(false);
+    const filterColumns = cloneDeep(props?.columns).filter(column =>
+      isBoolean(column?.hide)
+        ? !column.hide
+        : !(isFunction(column?.hide) && column?.hide())
+    );
     let checkColumnList = getKeyList(cloneDeep(props?.columns), "label");
-    const checkedColumns = ref(checkColumnList);
+    const checkedColumns = ref(getKeyList(cloneDeep(filterColumns), "label"));
     const dynamicColumns = ref(cloneDeep(props?.columns));
 
     const getDropdownItemStyle = computed(() => {
@@ -120,7 +131,7 @@ export default defineComponent({
       dynamicColumns.value = cloneDeep(props?.columns);
       checkColumnList = [];
       checkColumnList = await getKeyList(cloneDeep(props?.columns), "label");
-      checkedColumns.value = checkColumnList;
+      checkedColumns.value = getKeyList(cloneDeep(filterColumns), "label");
     }
 
     const dropdown = {
@@ -200,9 +211,13 @@ export default defineComponent({
 
     return () => (
       <>
-        <div {...attrs} class="w-[99/100] mt-6 p-2 bg-bg_color">
+        <div {...attrs} class="w-[99/100] mt-2 px-2 pb-2 bg-bg_color">
           <div class="flex justify-between w-full h-[60px] p-4">
-            <p class="font-bold truncate">{props.title}</p>
+            {slots?.title ? (
+              slots.title()
+            ) : (
+              <p class="font-bold truncate">{props.title}</p>
+            )}
             <div class="flex items-center justify-around">
               {slots?.buttons ? (
                 <div class="flex mr-4">{slots.buttons()}</div>
@@ -245,6 +260,7 @@ export default defineComponent({
 
               <el-popover
                 v-slots={reference}
+                placement="bottom-start"
                 popper-style={{ padding: 0 }}
                 width="160"
                 trigger="click"

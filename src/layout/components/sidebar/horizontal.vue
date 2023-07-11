@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Search from "../search/index.vue";
 import Notice from "../notice/index.vue";
-import { ref, watch, nextTick } from "vue";
 import SidebarItem from "./sidebarItem.vue";
+import { isAllEmpty } from "@pureadmin/utils";
+import { ref, nextTick, computed } from "vue";
 import { useNav } from "@/layout/hooks/useNav";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
@@ -13,25 +14,21 @@ const menuRef = ref();
 const {
   route,
   title,
-  routers,
   logout,
   backTopMenu,
   onPanel,
-  menuSelect,
   username,
+  userAvatar,
   avatarsStyle
 } = useNav();
+
+const defaultActive = computed(() =>
+  !isAllEmpty(route.meta?.activePath) ? route.meta.activePath : route.path
+);
 
 nextTick(() => {
   menuRef.value?.handleResize();
 });
-
-watch(
-  () => route.path,
-  () => {
-    menuSelect(route.path, routers);
-  }
-);
 </script>
 
 <template>
@@ -48,8 +45,7 @@ watch(
       ref="menuRef"
       mode="horizontal"
       class="horizontal-header-menu"
-      :default-active="route.path"
-      @select="indexPath => menuSelect(indexPath, routers)"
+      :default-active="defaultActive"
     >
       <sidebar-item
         v-for="route in usePermissionStoreHook().wholeMenus"
@@ -66,10 +62,7 @@ watch(
       <!-- 退出登录 -->
       <el-dropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover">
-          <img
-            src="https://avatars.githubusercontent.com/u/44761321?v=4"
-            :style="avatarsStyle"
-          />
+          <img :src="userAvatar" :style="avatarsStyle" />
           <p v-if="username" class="dark:text-white">{{ username }}</p>
         </span>
         <template #dropdown>
